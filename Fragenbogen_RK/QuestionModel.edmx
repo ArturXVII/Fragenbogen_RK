@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EHFragenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Antworten">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="Antwort" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Richtig" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FrageAntwort">
+          <Key>
+            <PropertyRef Name="P_FK_IdFragen" />
+            <PropertyRef Name="P_FK_IdAntwort" />
+          </Key>
+          <Property Name="P_FK_IdFragen" Type="int" Nullable="false" />
+          <Property Name="P_FK_IdAntwort" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fragen">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="int" Nullable="false" />
+          <Property Name="Frage" Type="varchar(max)" />
+        </EntityType>
+        <Association Name="FK_FrageAntwort_Antwort">
+          <End Role="Antworten" Type="Self.Antworten" Multiplicity="1" />
+          <End Role="FrageAntwort" Type="Self.FrageAntwort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Antworten">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="FrageAntwort">
+              <PropertyRef Name="P_FK_IdAntwort" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FrageAntwort_Fragen">
+          <End Role="Fragen" Type="Self.Fragen" Multiplicity="1" />
+          <End Role="FrageAntwort" Type="Self.FrageAntwort" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Fragen">
+              <PropertyRef Name="P_Id" />
+            </Principal>
+            <Dependent Role="FrageAntwort">
+              <PropertyRef Name="P_FK_IdFragen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EHFragenModelStoreContainer">
+          <EntitySet Name="Antworten" EntityType="Self.Antworten" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FrageAntwort" EntityType="Self.FrageAntwort" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fragen" EntityType="Self.Fragen" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_FrageAntwort_Antwort" Association="Self.FK_FrageAntwort_Antwort">
+            <End Role="Antworten" EntitySet="Antworten" />
+            <End Role="FrageAntwort" EntitySet="FrageAntwort" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FrageAntwort_Fragen" Association="Self.FK_FrageAntwort_Fragen">
+            <End Role="Fragen" EntitySet="Fragen" />
+            <End Role="FrageAntwort" EntitySet="FrageAntwort" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EHFragenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Antworten">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="Antwort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Richtig" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Fragens" Relationship="Self.FrageAntwort" FromRole="Antworten" ToRole="Fragen" />
+        </EntityType>
+        <EntityType Name="Fragen">
+          <Key>
+            <PropertyRef Name="P_Id" />
+          </Key>
+          <Property Name="P_Id" Type="Int32" Nullable="false" />
+          <Property Name="Frage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Antwortens" Relationship="Self.FrageAntwort" FromRole="Fragen" ToRole="Antworten" />
+        </EntityType>
+        <Association Name="FrageAntwort">
+          <End Role="Antworten" Type="Self.Antworten" Multiplicity="*" />
+          <End Role="Fragen" Type="Self.Fragen" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="EHFragenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Antwortens" EntityType="Self.Antworten" />
+          <EntitySet Name="Fragens" EntityType="Self.Fragen" />
+          <AssociationSet Name="FrageAntwort" Association="Self.FrageAntwort">
+            <End Role="Antworten" EntitySet="Antwortens" />
+            <End Role="Fragen" EntitySet="Fragens" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EHFragenModelStoreContainer" CdmEntityContainer="EHFragenEntities">
+          <EntitySetMapping Name="Antwortens">
+            <EntityTypeMapping TypeName="EHFragenModel.Antworten">
+              <MappingFragment StoreEntitySet="Antworten">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Antwort" ColumnName="Antwort" />
+                <ScalarProperty Name="Richtig" ColumnName="Richtig" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fragens">
+            <EntityTypeMapping TypeName="EHFragenModel.Fragen">
+              <MappingFragment StoreEntitySet="Fragen">
+                <ScalarProperty Name="P_Id" ColumnName="P_Id" />
+                <ScalarProperty Name="Frage" ColumnName="Frage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FrageAntwort" TypeName="EHFragenModel.FrageAntwort" StoreEntitySet="FrageAntwort">
+            <EndProperty Name="Antworten">
+              <ScalarProperty Name="P_Id" ColumnName="P_FK_IdAntwort" />
+            </EndProperty>
+            <EndProperty Name="Fragen">
+              <ScalarProperty Name="P_Id" ColumnName="P_FK_IdFragen" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
