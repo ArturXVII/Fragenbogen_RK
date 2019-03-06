@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Fragenbogen_RK"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="800">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="268*"/>
+            <RowDefinition Height="29*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="151*"/>
+            <ColumnDefinition Width="550*"/>
+            <ColumnDefinition Width="91*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="imgSide" HorizontalAlignment="Left" Height="296" Grid.Row="1" VerticalAlignment="Top" Width="151" Grid.RowSpan="2"/>
+        <Label x:Name="ldlCaption" Content="Erste-Hilfe-Quiz" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Height="73" Width="641" FontFamily="Segoe UI Black" FontSize="36" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Foreground="White" Background="Black"/>
+        <Label x:Name="lblFrage" Content="Frage 1: Macht zweite Hilfe noch Sinn?" Grid.Column="1" HorizontalAlignment="Center" Margin="10,25,90,0" Grid.Row="1" VerticalAlignment="Top" Height="30" Width="450" VerticalContentAlignment="Center" FontSize="16"/>
+        <Button x:Name="btnWeiter" Content="Weiter" Grid.Column="1" HorizontalAlignment="Left" Margin="465,232,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" BorderBrush="#00707070" Background="#FFDEDEDE" Panel.ZIndex="120" OpacityMask="Black" RenderTransformOrigin="1.491,1.49" ScrollViewer.VerticalScrollBarVisibility="Disabled" FontSize="16" Click="btnWeiter_Click"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="7" Margin="10,55,0,0" Grid.Row="1" VerticalAlignment="Top" Width="417" Background="Black" CornerRadius="10"/>
+        <Label x:Name="lblDRK" Content="DRK" HorizontalAlignment="Center" VerticalAlignment="Center" Height="73" Width="146" FontFamily="Segoe UI Black" FontSize="36" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Black" Foreground="White" Margin="0,0,5,0"/>
+        <CheckBox x:Name="chkA" Content="CheckBox A" Grid.Column="1" HorizontalAlignment="Left" Margin="10,83,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="chkA_Checked" Width="417" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkB" Content="CheckBox B" Grid.Column="1" HorizontalAlignment="Left" Margin="10,112,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="chkA_Checked" Width="417" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkC" Content="CheckBox C" Grid.Column="1" HorizontalAlignment="Left" Margin="10,141,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="chkA_Checked" Width="417" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Center"/>
+        <CheckBox x:Name="chkD" Content="CheckBox D" Grid.Column="1" HorizontalAlignment="Left" Margin="10,170,0,0" Grid.Row="1" VerticalAlignment="Top" Checked="chkA_Checked" Width="417" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalContentAlignment="Center"/>
     </Grid>
 </Window>
