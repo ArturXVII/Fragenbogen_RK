@@ -117,7 +117,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>QuestionModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="TestGUI.cs" />
+    <Compile Include="TestDBAbfrage.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

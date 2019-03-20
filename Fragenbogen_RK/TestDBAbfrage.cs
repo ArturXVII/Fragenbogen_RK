@@ -7,8 +7,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Fragenbogen_RK
 {
-    public class TestGUI
+    [TestClass]
+    public class TestDBAbfrage
     {
-
+        [TestMethod]
+        public void ShowAnswer()
+        {
+            //TODO
+        } 
     }
 }
