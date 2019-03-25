@@ -23,16 +23,25 @@ namespace Fragenbogen_RK
         private GUIController controller;
         private int score = 0;
         private int questionIndex = 1;
-        private string[] checkedAnswers;
+        private List<string> checkedAnswers;
+        private CheckBox[] chkBoxes;
+        private TextBox[] lblPruefs;
         public MainWindow()
         {
             InitializeComponent();
             controller = new GUIController();
+            chkBoxes = new CheckBox[]{ chkA, chkB, chkC, chkD };
+            lblPruefs = new TextBox[] { lblPruefA, lblPruefB, lblPruefC, lblPruefD };
             SetQuiz(0);
         }
 
         private void SetQuiz(int i)
         {
+            chkA.IsChecked = false;
+            chkB.IsChecked = false;
+            chkC.IsChecked = false;
+            chkD.IsChecked = false;
+            checkedAnswers = new List<string>();
             lblFrage.Content = "Frage " + questionIndex + ": " + controller.GetQuestion(i);
             SetQuestions(controller.GetAnswers(i));
         }
@@ -59,14 +68,45 @@ namespace Fragenbogen_RK
             }
         }
 
-        private void chkA_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnWeiter_Click(object sender, RoutedEventArgs e)
         {
+            if (btnWeiter.Content.ToString() == "Weiter")
+            {
+                btnWeiter.Content = "Prüfen";
+                questionIndex++;
+                SetQuiz(questionIndex);
+                return;
+            }
+            if ((bool)chkA.IsChecked) checkedAnswers.Add(chkA.Content.ToString());
+            if ((bool)chkB.IsChecked) checkedAnswers.Add(chkB.Content.ToString());
+            if ((bool)chkC.IsChecked) checkedAnswers.Add(chkC.Content.ToString());
+            if ((bool)chkD.IsChecked) checkedAnswers.Add(chkD.Content.ToString());
+            for (int i = 0; i < chkBoxes.Length; i++)
+            {
+                string[] correctAnswers = controller.GetCorrectAnswers(questionIndex);
+                if (Array.IndexOf(correctAnswers, chkBoxes[i].Content) <= -1)
+                {
+                    lblPruefs[i].Text = "X";
+                }
+                else lblPruefs[i].Text = "✔";
+            }
+            btnWeiter.Content = "Weiter";
+        }
 
+        private void chkA_Checked(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void chkB_Checked(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void chkC_Checked(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void chkD_Checked(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
