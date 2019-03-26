@@ -8,13 +8,15 @@ namespace Fragenbogen_RK
 {
     class Question
     {
-        int id;
-        string question;
+        public int id;
+        public string question;
+        public List<Answer> answers = new List<Answer>();
 
-        public Question(int id, string question)
+        public Question(int id, string question, List<Answer> answers)
         {
             this.id = id;
             this.question = question;
+            this.answers = answers;
         }
     }
 }

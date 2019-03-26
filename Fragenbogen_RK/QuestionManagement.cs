@@ -8,7 +8,24 @@ namespace Fragenbogen_RK
 {
     class QuestionManagement
     {
-        Fragen fragenEntitie = new Fragen();
-        Antworten antwortenEntitie = new Antworten();
+        EHFragenEntities questionEntitie = new EHFragenEntities();
+        Antworten answerEntitie = new Antworten();
+
+        QuestionFactory questions = new QuestionFactory();
+
+        public Question getQuestionById(int id)
+        {
+            var question = questionEntitie.Fragens.Where(x => (x.P_Id == id)).FirstOrDefault();
+            var answers = questionEntitie.Antwortens.Where(x => (x.P_Id == id)).ToList();
+
+            if(question!= null)
+            {
+                return questions.MapQuestion(question, answers);
+            }
+            else
+            {
+                throw new Exception("Keine Frage zur Id gefunden.");
+            }
+        }
     }
 }

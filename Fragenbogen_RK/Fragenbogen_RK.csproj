@@ -92,6 +92,7 @@
       <DependentUpon>QuestionModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Question.cs" />
+    <Compile Include="QuestionFactory.cs" />
     <Compile Include="QuestionManagement.cs" />
     <Compile Include="QuestionModel.Context.cs">
       <AutoGen>True</AutoGen>
