@@ -8,12 +8,17 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Fragenbogen_RK
 {
     [TestClass]
-    public class TestDBAbfrage
+    public class QuestionTests
     {
         [TestMethod]
         public void ShowAnswer()
         {
             //TODO
+            QuestionManagement qManager = new QuestionManagement();
+            qManager.getQuestionById(1);
+
+            
+
         } 
     }
 }
