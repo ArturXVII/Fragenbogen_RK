@@ -173,10 +173,6 @@
     <Content Include="EHFragen.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="EHFragen_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>EHFragen.mdf</DependentUpon>
-    </Content>
     <Content Include="QuestionModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>QuestionModel.Context.cs</LastGenOutput>
