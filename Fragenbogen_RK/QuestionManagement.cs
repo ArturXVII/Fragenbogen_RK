@@ -13,6 +13,29 @@ namespace Fragenbogen_RK
 
         QuestionFactory questions = new QuestionFactory();
 
+        public List<Question> getQuestionSet()
+        {
+            Random rnd = new Random();
+            List<Question> results=new List<Question>();
+            var amount = questionEntitie.Fragens.Max(x => (x.P_Id));
+            for(int i=0; i < 10; i++)
+            {
+                int id = rnd.Next(amount+1);
+                var entry = getQuestionById(id);
+                if (entry != null)
+                {
+
+                    results.Add(getQuestionById(id));
+                }
+                else
+                {
+
+                    throw new Exception("Keine Frage zur Id gefunden");
+                }
+            }
+            return results;
+        }
+
         public Question getQuestionById(int id)
         {
             var question = questionEntitie.Fragens.Where(x => (x.P_Id == id)).FirstOrDefault();
@@ -24,7 +47,7 @@ namespace Fragenbogen_RK
             }
             else
             {
-                throw new Exception("Keine Frage zur Id gefunden.");
+                return null;
             }
         }
     }
