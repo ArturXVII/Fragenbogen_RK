@@ -37,12 +37,17 @@ namespace Fragenbogen_RK
 
         private void SetQuiz(int i)
         {
-            chkA.IsChecked = false;
-            chkB.IsChecked = false;
-            chkC.IsChecked = false;
-            chkD.IsChecked = false;
+            foreach (CheckBox chk in chkBoxes)
+            {
+                chk.IsChecked = false;
+            }
+            foreach (TextBox lbl in lblPruefs)
+            {
+                lbl.Text = "";
+                lbl.Foreground = new SolidColorBrush(Colors.Black);
+            }
             checkedAnswers = new List<string>();
-            lblFrage.Content = "Frage " + questionIndex + ": " + controller.GetQuestion(i);
+            lblFrage.Content = "Frage " + questionIndex + ": " + controller.GetQuestion(questionIndex);
             SetQuestions(controller.GetAnswers(i));
         }
 
@@ -84,11 +89,20 @@ namespace Fragenbogen_RK
             for (int i = 0; i < chkBoxes.Length; i++)
             {
                 string[] correctAnswers = controller.GetCorrectAnswers(questionIndex);
-                if (Array.IndexOf(correctAnswers, chkBoxes[i].Content) <= -1)
+                if ((bool)chkBoxes[i].IsChecked)
                 {
-                    lblPruefs[i].Text = "X";
+                    if (Array.IndexOf(correctAnswers, chkBoxes[i].Content) <= -1)
+                    {
+                        lblPruefs[i].Text = "X";
+                        lblPruefs[i].Foreground = new SolidColorBrush(Colors.Red);
+                    }
+                    else
+                    {
+                        lblPruefs[i].Text = "✔";
+                        lblPruefs[i].Foreground = new SolidColorBrush(Colors.Green);
+                    }
+
                 }
-                else lblPruefs[i].Text = "✔";
             }
             btnWeiter.Content = "Weiter";
         }
