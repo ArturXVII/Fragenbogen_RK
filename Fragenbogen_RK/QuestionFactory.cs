@@ -15,18 +15,19 @@ namespace Fragenbogen_RK
 
                 id = tquestion.P_Id,
                 question = tquestion.Frage,
-                answers = MapAnswers(tanswers)
+                answers = MapAnswers(tquestion.Antwortens)
         };
         }
 
-        public List<Answer> MapAnswers(List<Antworten> tanswers)
+        public List<Answer> MapAnswers(ICollection<Fragenbogen_RK.Antworten> tanswers)
         {
-            var answers = new List<Answer>();
+            List<Answer> answers = new List<Answer>();
             if (tanswers != null)
             {
-                tanswers.ToList()
-                           .ForEach(x => answers
-                                    .Add(new Answer(x.P_Id, x.Antwort, x.Richtig)));
+                foreach (var answer in tanswers)
+                {
+                    answers.Add(new Answer(answer.P_Id, answer.Antwort, answer.Richtig));
+                }
             }
             else { return null; }
             return answers;
