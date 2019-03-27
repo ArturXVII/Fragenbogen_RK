@@ -15,7 +15,9 @@ namespace Fragenbogen_RK
         {
             //TODO
             QuestionManagement qManager = new QuestionManagement();
-            qManager.getQuestionById(1);
+            var help = qManager.getQuestionById(1);
+
+            Assert.AreEqual(help.answers[0].GetAnswer(), "122");
 
             
 
