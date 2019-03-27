@@ -27,11 +27,14 @@ namespace Fragenbogen_RK
             QuestionManagement qManager = new QuestionManagement();
 
             List<Question> qList = qManager.getQuestionSet();
+            List<Question> qBeforeList = new List<Question>();
 
-            foreach(Question q in qList)
+            foreach (Question q in qList)
             {
+                Assert.IsFalse(qBeforeList.Contains(q));
                 Assert.AreNotEqual(q.question, "");
                 Assert.AreNotEqual(q.question, null);
+                qBeforeList.Add(q);
             }
         }
     }
