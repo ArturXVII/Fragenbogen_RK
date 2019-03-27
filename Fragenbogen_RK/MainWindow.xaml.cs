@@ -154,7 +154,7 @@ namespace Fragenbogen_RK
                             }
                             else
                             {
-                                tempScore += 100 / correctAnswers.Length;
+                                tempScore += (int) Math.Ceiling((double)100 / correctAnswers.Length);
                                 chkBoxes[i].Content += " ✔";
                                 chkBoxes[i].Foreground = new SolidColorBrush(Colors.Green);
                             }
