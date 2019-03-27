@@ -30,7 +30,6 @@ namespace Fragenbogen_RK
         {
             InitializeComponent();
             chkBoxes = new CheckBox[]{ chkA, chkB, chkC, chkD };
-            lblPruefs = new TextBox[] { lblPruefA, lblPruefB, lblPruefC, lblPruefD };
             QuestionManagement qm = new QuestionManagement();
             questionSet = qm.getQuestionSet();
             SetQuiz(0);
@@ -42,14 +41,10 @@ namespace Fragenbogen_RK
             {
                 chk.IsChecked = false;
                 chk.IsEnabled = true;
-            }
-            foreach (TextBox lbl in lblPruefs)
-            {
-                lbl.Text = "";
-                lbl.Foreground = new SolidColorBrush(Colors.Black);
+                chk.Foreground = new SolidColorBrush(Colors.Black);
             }
             checkedAnswers = new List<string>();
-            lblFrage.Content = "Frage " + i + ": " + questionSet[i].question;
+            lblFrage.Content = "Frage " + questionIndex + ": " + questionSet[i].question;
             SetQuestions(questionSet[i].answers);
         }
 
@@ -83,18 +78,14 @@ namespace Fragenbogen_RK
             {
                 chk.Visibility = Visibility.Visible;
             }
-            foreach (TextBox lbl in lblPruefs)
-            {
-                lbl.Visibility = Visibility.Visible;
-            }
             lblScore.Visibility = Visibility.Hidden;
             lblScore.Content = "";
             btnWeiter.Content = "Prüfen";
             QuestionManagement qm = new QuestionManagement();
             questionSet = qm.getQuestionSet();
-            SetQuiz(0);
             score = 0;
             questionIndex = 1;
+            SetQuiz(questionIndex);
         }
 
         private void ShowScore()
@@ -104,10 +95,6 @@ namespace Fragenbogen_RK
             foreach (CheckBox chk in chkBoxes)
             {
                 chk.Visibility = Visibility.Hidden;
-            }
-            foreach (TextBox lbl in lblPruefs)
-            {
-                lbl.Visibility = Visibility.Hidden;
             }
             lblScore.Visibility = Visibility.Visible;
             lblScore.Content = "Score: " + score + "/" + questionSet.Count * 100;
@@ -121,6 +108,11 @@ namespace Fragenbogen_RK
             {
                 if (a.IsCorrect()) answers.Add(a.GetAnswer());
             }
+            foreach (string a in answers)
+            {
+                Console.WriteLine(a);
+            }
+
             return answers.ToArray<string>();
         }
 
@@ -135,6 +127,7 @@ namespace Fragenbogen_RK
                         ShowScore();
                         return;
                     }
+                    questionIndex++;
                     SetQuiz(questionIndex-1);
                     break;
                 case "Prüfen":
@@ -150,26 +143,26 @@ namespace Fragenbogen_RK
                     if ((bool)chkD.IsChecked) checkedAnswers.Add(chkD.Content.ToString());
                     for (int i = 0; i < chkBoxes.Length; i++)
                     {
-                        string[] correctAnswers = GetCorrectAnswers(questionIndex);
+                        string[] correctAnswers = GetCorrectAnswers(questionIndex-1);
                         if ((bool)chkBoxes[i].IsChecked)
                         {
                             if (Array.IndexOf(correctAnswers, chkBoxes[i].Content) <= -1)
                             {
                                 multiplikator = 0;
-                                lblPruefs[i].Text = "X";
-                                lblPruefs[i].Foreground = new SolidColorBrush(Colors.Red);
+                                chkBoxes[i].Content += " X";
+                                chkBoxes[i].Foreground = new SolidColorBrush(Colors.Red);
                             }
                             else
                             {
                                 tempScore += 100 / correctAnswers.Length;
-                                lblPruefs[i].Text = "✔";
-                                lblPruefs[i].Foreground = new SolidColorBrush(Colors.Green);
+                                chkBoxes[i].Content += " ✔";
+                                chkBoxes[i].Foreground = new SolidColorBrush(Colors.Green);
                             }
                         }
                         else if (!(Array.IndexOf(correctAnswers, chkBoxes[i].Content) <= -1))
                         {
-                            lblPruefs[i].Text = "✔";
-                            lblPruefs[i].Foreground = new SolidColorBrush(Colors.Green);
+                            chkBoxes[i].Content += " ✔";
+                            chkBoxes[i].Foreground = new SolidColorBrush(Colors.Green);
                         }
                     }
                     score += tempScore * multiplikator;
