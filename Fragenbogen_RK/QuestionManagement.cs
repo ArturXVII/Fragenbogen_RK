@@ -18,19 +18,24 @@ namespace Fragenbogen_RK
             Random rnd = new Random();
             List<Question> results=new List<Question>();
             var amount = questionEntitie.Fragens.Max(x => (x.P_Id));
+            List<int> used = new List<int>();
             for(int i=0; i < 10; i++)
             {
                 int id = rnd.Next(amount+1);
-                var entry = getQuestionById(id);
-                if (entry != null)
+                while (!used.Contains(id))
                 {
+                    var entry = getQuestionById(id);
+                    used.Add(id);
+                    if (entry != null)
+                    {
 
-                    results.Add(getQuestionById(id));
-                }
-                else
-                {
+                        results.Add(entry);
+                    }
+                    else
+                    {
 
-                    throw new Exception("Keine Frage zur Id gefunden");
+                        throw new Exception("Keine Frage zur Id gefunden");
+                    }
                 }
             }
             return results;
