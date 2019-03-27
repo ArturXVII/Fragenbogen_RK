@@ -18,5 +18,15 @@ namespace Fragenbogen_RK
             this.answer = answer;
             this.correct = correct;
         }
+
+        public string GetAnswer()
+        {
+            return answer;
+        }
+
+        public bool IsCorrect()
+        {
+            return correct;
+        }
     }
 }
