@@ -26,12 +26,15 @@ namespace Fragenbogen_RK
         private List<string> checkedAnswers;
         private CheckBox[] chkBoxes;
         private TextBox[] lblPruefs;
+        private List<Question> questionSet;
         public MainWindow()
         {
             InitializeComponent();
             controller = new GUIController();
             chkBoxes = new CheckBox[]{ chkA, chkB, chkC, chkD };
             lblPruefs = new TextBox[] { lblPruefA, lblPruefB, lblPruefC, lblPruefD };
+            QuestionManagement qm = new QuestionManagement();
+            questionSet = qm.getQuestionSet();
             SetQuiz(0);
         }
 
@@ -47,27 +50,27 @@ namespace Fragenbogen_RK
                 lbl.Foreground = new SolidColorBrush(Colors.Black);
             }
             checkedAnswers = new List<string>();
-            lblFrage.Content = "Frage " + questionIndex + ": " + controller.GetQuestion(questionIndex);
-            SetQuestions(controller.GetAnswers(i));
+            lblFrage.Content = "Frage " + questionIndex + ": " + questionSet[questionIndex].question;
+            SetQuestions(questionSet[i].answers);
         }
 
-        private void SetQuestions(string[] questions)
+        private void SetQuestions(List<Answer> answers)
         {
-            for (int i = 0; i < questions.Length; i++)
+            for (int i = 0; i < answers.Count; i++)
             {
                 switch (i)
                 {
                     case 0:
-                        chkA.Content = questions[i];
+                        chkA.Content = answers[i].GetAnswer();
                         break;
                     case 1:
-                        chkB.Content = questions[i];
+                        chkB.Content = answers[i].GetAnswer();
                         break;
                     case 2:
-                        chkC.Content = questions[i];
+                        chkC.Content = answers[i].GetAnswer();
                         break;
                     case 3:
-                        chkD.Content = questions[i];
+                        chkD.Content = answers[i].GetAnswer();
                         break;
                 }
             }
