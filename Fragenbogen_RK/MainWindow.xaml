@@ -33,5 +33,6 @@
         <TextBox x:Name="lblPruefB" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="376,112,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" BorderBrush="#00ABADB3" FontWeight="Bold" IsEnabled="False"/>
         <TextBox x:Name="lblPruefC" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="376,141,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" BorderBrush="#00ABADB3" FontWeight="Bold" IsEnabled="False"/>
         <TextBox x:Name="lblPruefD" Grid.Column="1" HorizontalAlignment="Left" Height="20" Margin="376,170,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="51" BorderBrush="#00ABADB3" FontWeight="Bold" IsEnabled="False"/>
+        <Label x:Name="lblScore" Content="" Grid.Column="1" Margin="0,0,10,53" Grid.Row="1" VerticalAlignment="Bottom" RenderTransformOrigin="-0.353,-0.215" Height="147" FontSize="72" HorizontalAlignment="Center"/>
     </Grid>
 </Window>
