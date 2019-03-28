@@ -13,6 +13,56 @@ namespace Fragenbogen_RK
     {
 
         [TestMethod]
+        public void QuestionFactory_MapAnswers_ReturnValue()
+        {
+            EHFragenEntities ehfEntitie = new EHFragenEntities();
+            QuestionFactory qFactory = new QuestionFactory();
+
+            List<Antworten> antworten = ehfEntitie.Antwortens.Where(x => (x.P_Id == 1)).ToList();
+            List<Answer> answerList = qFactory.MapAnswers(antworten);
+
+            Assert.AreEqual(answerList[0].GetAnswer(), "122");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void QuestionFactory_MapAnswersNull_Return_NullReferenceException()
+        {
+            QuestionFactory qFactory = new QuestionFactory();
+
+            List<Answer> answerList = qFactory.MapAnswers(null);
+
+            String s = answerList[0].GetAnswer();
+        }
+
+        [TestMethod]
+        public void QuestionFactory_MapQuestion_ReturnValueObject()
+        {
+            EHFragenEntities ehfEntitie = new EHFragenEntities();
+            QuestionFactory qFactory = new QuestionFactory();
+            QuestionManagement qManager = new QuestionManagement();
+            Question managerQ = qManager.getQuestionById(1);
+
+            Fragenbogen_RK.Fragen fragen = ehfEntitie.Fragens.Where(x => (x.P_Id == 1)).FirstOrDefault();
+            List<Antworten> antworten = ehfEntitie.Antwortens.Where(x => (x.P_Id == 1)).ToList();
+
+            Question factoryQ = qFactory.MapQuestion(fragen, antworten);
+
+            Assert.AreEqual(factoryQ.question, managerQ.question);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void QuestionFactory_MapQuestionNull_Return_NullReferenceException()
+        {
+            QuestionFactory qFactory = new QuestionFactory();
+
+            Question factoryQ = qFactory.MapQuestion(null, null);
+
+            String s = factoryQ.question;
+        }
+
+        [TestMethod]
         public void QuestionManagement_getQuestionByIdTest_ReturnValue()
         {
             QuestionManagement qManager = new QuestionManagement();
@@ -50,5 +100,7 @@ namespace Fragenbogen_RK
                 qBeforeList.Add(q);
             }
         }
+
+
     }
 }
