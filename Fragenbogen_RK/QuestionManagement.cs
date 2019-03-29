@@ -19,7 +19,7 @@ namespace Fragenbogen_RK
             List<Question> results=new List<Question>();
             var amount = questionEntitie.Fragens.Max(x => (x.P_Id));
             List<int> used = new List<int>();
-            while(results.Count<10)
+            while(results.Count<15)
             {
                 int id = rnd.Next(amount+1);
                 while (!used.Contains(id))

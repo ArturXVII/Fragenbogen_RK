@@ -97,7 +97,8 @@ namespace Fragenbogen_RK
                 chk.Visibility = Visibility.Hidden;
             }
             lblScore.Visibility = Visibility.Visible;
-            lblScore.Content = "Score: " + score + "/" + questionSet.Count * 100;
+            double anteil = Math.Round(score / (questionSet.Count * 100.0)*100.0 * 10) / 10;
+            lblScore.Content = "Mit " + anteil + "% " + (anteil < 60 ? "GELOOST" : "BESTANDEN");
             btnWeiter.Content = "Wieder versuchen";
         }
 
